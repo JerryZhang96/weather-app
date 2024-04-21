@@ -1,6 +1,7 @@
 type ErrorFallbackProps = {
   error: Error;
 };
+
 export function ErrorFallback({ error }: ErrorFallbackProps) {
   return (
     <div role="alert">

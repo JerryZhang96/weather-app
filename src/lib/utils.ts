@@ -5,6 +5,12 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/**
+ * Formats a Unix timestamp into a human-readable date and time string.
+ *
+ * @param {number} timestamp - The Unix timestamp to format.
+ * @returns {string} A formatted date and time string in the format "DD-MM-YYYY HH:MMam/pm".
+ */
 export function formatUnixTimestamp(timestamp: number) {
   if (!timestamp) return "00-00-0000 00:00am";
   // Convert the Unix timestamp to milliseconds
@@ -30,6 +36,12 @@ export function formatUnixTimestamp(timestamp: number) {
   return formattedDate;
 }
 
+/**
+ * Formats a number for display.
+ *
+ * @param {number} value - The number to format.
+ * @returns {string} A formatted string representation of the number.
+ */
 export function formatNumber(value: number) {
   if (!value) return "-";
   if (Math.round(value) === 0) return "0";
