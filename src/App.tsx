@@ -1,4 +1,4 @@
-import { Suspense, useState, lazy } from "react";
+import { Suspense, useState, lazy, useEffect } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import toast from "react-hot-toast";
 
@@ -8,9 +8,12 @@ import { SearchInput } from "@/components/search-input";
 import { ErrorFallback } from "@/components/error-fallback";
 import { Loading } from "@/components/loading";
 import { fetchWeatherData } from "@/api/weather";
+import { CACHE_DURATION } from "@/lib/constants";
 import { WeatherData } from "@/lib/types";
 
 const Weather = lazy(() => import("@/components/weather"));
+
+const cache = new Map();
 
 function App() {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
@@ -19,14 +22,13 @@ function App() {
 
   const getWeatherData = (city: string) => {
     setLoading(true);
-    fetchWeatherData({ city })
-      .then((res) => {
-        const data = res.data;
+    cacheWeatherData(city)
+      .then((data) => {
         setWeatherData(data);
         setSearchHistoryData((prevHistory) => [data, ...prevHistory]);
       })
       .catch((err) => {
-        toast.error(err?.response?.data?.message);
+        toast.error(err?.response?.data?.message || "Internal Server Error");
       })
       .finally(() => setLoading(false));
   };
@@ -36,6 +38,31 @@ function App() {
       prevHistory.filter((_, idx) => idx !== index),
     );
   };
+
+  const cacheWeatherData = async (city: string) => {
+    const formattedCity = city.trim().toLowerCase();
+    const cachedData = cache.get(formattedCity);
+
+    if (cachedData && cachedData.expiration > Date.now()) {
+      return cachedData.data;
+    }
+
+    const res = await fetchWeatherData({ city });
+    const expiration = Date.now() + CACHE_DURATION;
+
+    cache.set(formattedCity, { data: res.data, expiration });
+    return res.data;
+  };
+
+  const invalidateCacheInterval = setInterval(() => {
+    cache.clear();
+  }, CACHE_DURATION);
+
+  useEffect(() => {
+    return () => {
+      clearInterval(invalidateCacheInterval);
+    };
+  }, []);
 
   return (
     <div className="relative h-screen overflow-y-scroll bg-weather-light bg-cover py-20 font-noto-sans dark:bg-weather-dark">
