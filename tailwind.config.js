@@ -21,8 +21,8 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        "weather-light": "url('/src/assets/bg-light.png')",
-        "weather-dark": "url('/src/assets/bg-dark.png')",
+        "weather-light": "url('/assets/bg-light.png')",
+        "weather-dark": "url('/assets/bg-dark.png')",
       },
       colors: {
         border: "hsl(var(--border))",
