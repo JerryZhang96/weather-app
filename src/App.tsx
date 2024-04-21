@@ -2,8 +2,8 @@ import { Suspense, useState, lazy } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import toast from "react-hot-toast";
 
-import { ThemeProvider } from "@/components/theme-provider";
-import { ModeToggle } from "@/components/mode-toggle";
+import { ThemeProvider } from "@/providers/theme-provider";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { SearchInput } from "@/components/search-input";
 import { ErrorFallback } from "@/components/error-fallback";
 import { Loading } from "@/components/loading";
@@ -40,7 +40,7 @@ function App() {
     <div className="relative h-screen overflow-y-scroll bg-weather-light bg-cover py-20 font-noto-sans dark:bg-weather-dark">
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <div className="mx-[18px] max-w-[700px] md:mx-auto">
-          <ModeToggle />
+          <ThemeToggle />
           <SearchInput loading={loading} onSearch={getWeatherData} />
           <ErrorBoundary fallbackRender={ErrorFallback}>
             <Suspense fallback={<Loading text="Loading..." />}>
