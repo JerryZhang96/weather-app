@@ -8,27 +8,30 @@ type logoMapProps = {
   [key: string]: string;
 };
 
+const sunLogoPath = "/assets/sun.png";
+const cloudLogoPath = "/assets/cloud.png";
+
 // https://openweathermap.org/weather-conditions
 const logoMap: logoMapProps = {
-  "01d": "/assets/sun.png",
-  "01n": "/assets/sun.png",
-  "02d": "/assets/cloud.png",
-  "02n": "/assets/cloud.png",
-  "03d": "/assets/cloud.png",
-  "03n": "/assets/cloud.png",
-  "04d": "/assets/cloud.png",
-  "04n": "/assets/cloud.png",
-  "09d": "/assets/cloud.png",
-  "09n": "/assets/cloud.png",
-  "10d": "/assets/cloud.png",
-  "10n": "/assets/cloud.png",
-  "11d": "/assets/cloud.png",
-  "11n": "/assets/cloud.png",
-  "13d": "/assets/cloud.png",
-  "13n": "/assets/cloud.png",
-  "50d": "/assets/cloud.png",
-  "50n": "/assets/cloud.png",
-  default: "/assets/sun.png",
+  "01d": sunLogoPath,
+  "01n": sunLogoPath,
+  "02d": cloudLogoPath,
+  "02n": cloudLogoPath,
+  "03d": cloudLogoPath,
+  "03n": cloudLogoPath,
+  "04d": cloudLogoPath,
+  "04n": cloudLogoPath,
+  "09d": cloudLogoPath,
+  "09n": cloudLogoPath,
+  "10d": cloudLogoPath,
+  "10n": cloudLogoPath,
+  "11d": cloudLogoPath,
+  "11n": cloudLogoPath,
+  "13d": cloudLogoPath,
+  "13n": cloudLogoPath,
+  "50d": cloudLogoPath,
+  "50n": cloudLogoPath,
+  default: sunLogoPath,
 };
 
 export function Logo({ weatherData }: LogoProps) {

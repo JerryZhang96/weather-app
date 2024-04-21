@@ -21,8 +21,9 @@ function App() {
     setLoading(true);
     fetchWeatherData({ city })
       .then((res) => {
-        setWeatherData(res.data);
-        setSearchHistoryData((prevHistory) => [res.data, ...prevHistory]);
+        const data = res.data;
+        setWeatherData(data);
+        setSearchHistoryData((prevHistory) => [data, ...prevHistory]);
       })
       .catch((err) => {
         toast.error(err?.response?.data?.message);
