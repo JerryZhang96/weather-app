@@ -1,4 +1,4 @@
-import request from "@/lib/api";
+import request from "@/lib/request";
 
 /**
  * Fetches weather data from the OpenWeather API.

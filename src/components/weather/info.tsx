@@ -1,13 +1,13 @@
 import { City } from "./city";
 import { Time } from "./time";
-import { WeatherData } from "@/lib/types";
 import { formatNumber } from "@/lib/utils";
+import { useWeather } from "@/hooks/useWeather";
 
-type InfoProps = {
-  weatherData: WeatherData;
-};
+export function Info() {
+  const { weatherData } = useWeather();
 
-export function Info({ weatherData }: InfoProps) {
+  if (!weatherData) return;
+
   return (
     <section>
       <h2 className="text-sm md:text-base">Today's Weather</h2>

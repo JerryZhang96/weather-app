@@ -1,8 +1,4 @@
-import { WeatherData } from "@/lib/types";
-
-type LogoProps = {
-  weatherData: WeatherData;
-};
+import { useWeather } from "@/hooks/useWeather";
 
 type logoMapProps = {
   [key: string]: string;
@@ -34,7 +30,11 @@ const logoMap: logoMapProps = {
   default: sunLogoPath,
 };
 
-export function Logo({ weatherData }: LogoProps) {
+export function Logo() {
+  const { weatherData } = useWeather();
+
+  if (!weatherData) return;
+
   const icon = weatherData?.weather[0]?.icon;
   const src = logoMap[icon] || logoMap.default;
   const alt = weatherData?.weather[0]?.main;

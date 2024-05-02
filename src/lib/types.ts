@@ -10,6 +10,7 @@ export type WeatherData = {
   };
   dt: number;
   id: number;
+  uuid: number; // for unique id in search history list
   main: {
     feels_like: number;
     grnd_level: number;

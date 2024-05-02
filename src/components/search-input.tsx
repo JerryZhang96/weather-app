@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { SearchIcon } from "./icons";
+import { useWeather } from "@/hooks/useWeather";
 
 const FormSchema = z.object({
   city: z.string().min(1, {
@@ -19,12 +20,9 @@ const FormSchema = z.object({
   }),
 });
 
-type SearchInput = {
-  loading: boolean;
-  onSearch: (city: string) => void;
-};
+export function SearchInput() {
+  const { loading, getWeatherData: onSearch } = useWeather();
 
-export function SearchInput({ loading, onSearch }: SearchInput) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
